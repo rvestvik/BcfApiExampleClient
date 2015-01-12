@@ -18,15 +18,22 @@ namespace BCF_API
     [STAThread]
     static void Main()
     {
+      // Please fill inn:
+      string url = "https://bim--it.net/bcf";
+      string clientId = "YOUR_CLIENT_ID";
+      string clientSecret = "YOU_CLIENT_SECRET";
+
+
       var login = new ServerLoginUI();
       OAuthModule.ServerLoginUIObj = login;
       login.ShowDialog();
 
       var client = new WebWrapper();
-      
-      string AuthorizationPlain = "YjEzMmQ0ZjMtYTY4Mi00ZDg0LWI4NTktNGU3NjM0YjcyNWZh" + ":" + "MzllY2I4MmUtYTQ3Mi00ZWI3LTkzZmYtYzczZjNiMzQyMDFk";
+
+
+      string AuthorizationPlain = clientId + ":" + clientSecret;
       string AuthorizationEncoded = Convert.ToBase64String(Encoding.Default.GetBytes(AuthorizationPlain));
-      string result = client.Request("https://bim--it.net/bcf/OAuth2/token", "POST", "Basic " + AuthorizationEncoded, "grant_type=authorization_code&code=" + login.sAuthCode + "\n");
+      string result = client.Request(url+"/OAuth2/token", "POST", "Basic " + AuthorizationEncoded, "grant_type=authorization_code&code=" + login.sAuthCode + "\n");
       dynamic json = JObject.Parse(result);
       string token = json.access_token;
 
@@ -37,7 +44,7 @@ namespace BCF_API
       str.AppendLine("refresh_token: " + json.refresh_token);
       MessageBox.Show(str.ToString());
 
-      result = client.Request("https://bim--it.net/bcf/1.0/projects", "GET", "Bearer " + token, "");
+      result = client.Request(url+"/1.0/projects", "GET", "Bearer " + token, "");
       dynamic projects = JObject.Parse("{list:" + result + "}");
 
       StringBuilder
