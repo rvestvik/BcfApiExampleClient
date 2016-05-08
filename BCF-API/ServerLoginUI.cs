@@ -17,9 +17,11 @@ namespace BCF_API
   {
     public string sAuthCode { get; set; }
 
-    public ServerLoginUI()
+    public ServerLoginUI(string authEndpointUrl)
     {
       InitializeComponent();
+
+      webBrowser1.Url = new Uri(authEndpointUrl);
 
       var server = new KayakServer();
       server.UseFramework();

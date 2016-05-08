@@ -1,0 +1,6 @@
+# Ignore bin & obj folders
+bin/
+obj/
+
+# Ignore restored packages
+packages/
