@@ -18,7 +18,7 @@ namespace BCF_API
     {
       HttpWebRequest TokenWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
       TokenWebRequest.Method = method;
-      TokenWebRequest.ContentType = "text/html; charset = UTF - 8";
+      TokenWebRequest.ContentType = "application/x-www-form-urlencoded; charset = UTF - 8";
       TokenWebRequest.Headers["Authorization"] = authHeader;
       if (method == "POST")
       {
